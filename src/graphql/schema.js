@@ -22,13 +22,15 @@ export const typeDefs = gql`
     email: String
     phone: Phone
     address: Address
-    createdAt: String
-    updatedAt: String
+    createdAt: DateTime
+    updatedAt: DateTime
   }
 
   input ContactInput {
     firstName: String!
+      @constraint(pattern: "^([ 0-9À-ǿa-zA-Z'-])+$", maxLength: 255)
     lastName: String
+      @constraint(pattern: "^([ 0-9À-ǿa-zA-Z'-])+$", maxLength: 255)
     email: String
     phone: PhoneInput
     address: AddressInput
@@ -42,10 +44,10 @@ export const typeDefs = gql`
   }
 
   input AddressInput {
-    city: String
-    street: String
-    country: String
-    postalCode: String
+    city: String @constraint(pattern: "^([ À-ǿa-zA-Z'-])+$", maxLength: 255)
+    street: String @constraint(pattern: "^([ À-ǿa-zA-Z'-])+$", maxLength: 255)
+    country: String @constraint(pattern: "^([ À-ǿa-zA-Z'-])+$", maxLength: 56)
+    postalCode: String @constraint(pattern: "^([ 0-9-])+$", maxLength: 10)
   }
 
   input ContactUpdateInput {

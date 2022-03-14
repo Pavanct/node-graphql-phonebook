@@ -4,8 +4,16 @@ import { PrismaClient } from "@prisma/client"
 import { ApolloServer } from "apollo-server"
 import { resolvers } from "./graphql/resolvers"
 import { typeDefs } from "./graphql/schema"
+import {
+  resolvers as scalarResolvers,
+  typeDefs as scalarTypeDefs,
+} from "graphql-scalars"
+import {
+  constraintDirective,
+  constraintDirectiveTypeDefs,
+} from "graphql-constraint-directive"
 
-const port = process.env.PORT || 5000
+const port = process.env.PORT || 4000
 
 const prisma = new PrismaClient({
   log: ["error"],
@@ -16,9 +24,10 @@ const context = {
 }
 
 let schema = makeExecutableSchema({
-  typeDefs: [typeDefs],
-  resolvers: [resolvers],
+  typeDefs: [scalarTypeDefs, typeDefs, constraintDirectiveTypeDefs],
+  resolvers: [scalarResolvers, resolvers],
 })
+schema = constraintDirective()(schema)
 
 const server = new ApolloServer({
     schema: schema,
