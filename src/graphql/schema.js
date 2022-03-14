@@ -48,6 +48,15 @@ export const typeDefs = gql`
     postalCode: String
   }
 
+  input ContactUpdateInput {
+    id: ID!
+    firstName: String
+    lastName: String
+    email: EmailAddress
+    phone: PhoneInput
+    address: AddressInput
+  }
+
   type Query {
     contacts: [Contact]
     contact(id: ID!): Contact
@@ -55,5 +64,7 @@ export const typeDefs = gql`
 
   type Mutation {
     createContact(Contact: ContactInput!): Contact!
+    updateContact(Contact: ContactUpdateInput!): Contact!
+    deleteContact(id: ID!): Contact!
   }
 `
