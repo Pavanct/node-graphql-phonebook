@@ -6,6 +6,9 @@ export const resolvers = {
           phone: true,
           address: true,
         },
+        skip: args.skip,
+        take: args.take,
+        orderBy: args.orderBy,
       })
     },
     contact: async (_, args, context) => {

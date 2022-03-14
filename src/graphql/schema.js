@@ -57,8 +57,19 @@ export const typeDefs = gql`
     address: AddressInput
   }
 
+  enum Sort {
+    asc
+    desc
+  }
+
+  input ContactOrderByInput {
+    firstName: Sort
+    createdAt: Sort
+    updatedAt: Sort
+  }
+
   type Query {
-    contacts: [Contact]
+    contacts(skip: Int, take: Int, orderBy: ContactOrderByInput): [Contact]
     contact(id: ID!): Contact
   }
 
