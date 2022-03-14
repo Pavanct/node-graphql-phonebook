@@ -1,8 +1,11 @@
+import "dotenv/config"
 import { makeExecutableSchema } from "@graphql-tools/schema"
 import { PrismaClient } from "@prisma/client"
 import { ApolloServer } from "apollo-server"
 import { resolvers } from "./graphql/resolvers"
 import { typeDefs } from "./graphql/schema"
+
+const port = process.env.PORT || 5000
 
 const prisma = new PrismaClient({
   log: ["error"],

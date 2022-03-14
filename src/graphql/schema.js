@@ -49,7 +49,7 @@ export const typeDefs = gql`
   }
 
   type Query {
-    contacts(): [Contact]
+    contacts: [Contact]
     contact(id: ID!): Contact
   }
 
