@@ -1,7 +1,10 @@
+import { isTokenValid } from "../auth"
+
 export const resolvers = {
   Query: {
     contacts: async (_, args, context) => {
-      return await context.prisma.Contact.findMany({
+      const { prisma } = await context
+      return await prisma.Contact.findMany({
         include: {
           phone: true,
           address: true,
@@ -12,7 +15,8 @@ export const resolvers = {
       })
     },
     contact: async (_, args, context) => {
-      return await context.prisma.Contact.findUnique({
+      const { prisma } = await context
+      return await prisma.Contact.findUnique({
         where: { id: Number(args.id) },
         include: {
           phone: true,
@@ -23,7 +27,10 @@ export const resolvers = {
   },
   Mutation: {
     createContact: async (_, args, context) => {
-      return await context.prisma.contact.create({
+      const { prisma, token } = await context
+      const { error } = await isTokenValid(token)
+      if (error) throw error
+      return await prisma.contact.create({
         data: {
           firstName: args.Contact.firstName ? args.Contact.firstName : "",
           lastName: args.Contact.lastName ? args.Contact.lastName : "",
@@ -60,7 +67,10 @@ export const resolvers = {
       })
     },
     updateContact: async (_, args, context) => {
-      return await context.prisma.contact.update({
+      const { prisma, token } = await context
+      const { error } = await isTokenValid(token)
+      if (error) throw error
+      return await prisma.contact.update({
         where: {
           id: Number(args.Contact.id) || undefined,
         },
@@ -96,9 +106,12 @@ export const resolvers = {
       })
     },
     deleteContact: async (_, args, context) => {
-      return await context.prisma.contact.delete({
+      const { prisma, token } = await context
+      const { error } = await isTokenValid(token)
+      if (error) throw error
+      return await prisma.contact.delete({
         where: {
-          id: parseInt(args.id),
+          id: Number(args.id),
         },
       })
     },
