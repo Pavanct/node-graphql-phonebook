@@ -45,7 +45,7 @@ export const typeDefs = gql`
 
   input AddressInput {
     city: String @constraint(pattern: "^([ À-ǿa-zA-Z'-])+$", maxLength: 255)
-    street: String @constraint(pattern: "^([ À-ǿa-zA-Z'-])+$", maxLength: 255)
+    street: String @constraint(pattern: "^([ 0-9À-ǿa-zA-Z'-])+$", maxLength: 255)
     country: String @constraint(pattern: "^([ À-ǿa-zA-Z'-])+$", maxLength: 56)
     postalCode: String @constraint(pattern: "^([ 0-9-])+$", maxLength: 10)
   }

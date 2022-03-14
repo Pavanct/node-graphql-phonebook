@@ -23,7 +23,7 @@ export const resolvers = {
   },
   Mutation: {
     createContact: async (_, args, context) => {
-      return await prisma.contact.create({
+      return await context.prisma.contact.create({
         data: {
           firstName: args.Contact.firstName ? args.Contact.firstName : "",
           lastName: args.Contact.lastName ? args.Contact.lastName : "",
