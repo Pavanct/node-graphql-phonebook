@@ -1,4 +1,5 @@
 import { isTokenValid } from "../auth"
+import { errorName } from "../utils/constants"
 
 export const resolvers = {
   Query: {
@@ -29,7 +30,9 @@ export const resolvers = {
     createContact: async (_, args, context) => {
       const { prisma, token } = await context
       const { error } = await isTokenValid(token)
-      if (error) throw error
+      if (error) {
+        throw new Error(errorName.AUTHENTICATION_ERROR)
+      }
       return await prisma.contact.create({
         data: {
           firstName: args.Contact.firstName ? args.Contact.firstName : "",
@@ -69,7 +72,9 @@ export const resolvers = {
     updateContact: async (_, args, context) => {
       const { prisma, token } = await context
       const { error } = await isTokenValid(token)
-      if (error) throw error
+      if (error) {
+        throw new Error(errorName.AUTHENTICATION_ERROR)
+      }
       return await prisma.contact.update({
         where: {
           id: Number(args.Contact.id) || undefined,
@@ -108,7 +113,9 @@ export const resolvers = {
     deleteContact: async (_, args, context) => {
       const { prisma, token } = await context
       const { error } = await isTokenValid(token)
-      if (error) throw error
+      if (error) {
+        throw new Error(errorName.AUTHENTICATION_ERROR)
+      }
       return await prisma.contact.delete({
         where: {
           id: Number(args.id),
