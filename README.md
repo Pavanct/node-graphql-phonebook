@@ -1,5 +1,5 @@
 # node-graphql-phonebook
-The application is built with node, express, express-graphql, postgres and auth0
+The application is built with node, express, express-graphql, prisma, postgres and auth0
 The application performs CRUD operations on graphql api
 
 ## Environment variables
@@ -13,6 +13,13 @@ Please follow this url to setup the auth0 API - https://auth0.com/docs/quickstar
 Please install docker-compose before running the command
 
 `docker-compose up -d`
+
+## Run the migrations
+Please run migrations with prisma to create the postgres tables 
+
+`npx primsa migrate dev`
+
+To learn more about Prisma and migrations - https://www.prisma.io/docs/concepts/components/prisma-migrate
 
 ## Install dependencies
 `yarn install`
