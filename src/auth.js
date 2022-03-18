@@ -11,7 +11,7 @@ const client = jwksClient({
 
 function getKey(header, callback) {
   client.getSigningKey(header.kid, function (error, key) {
-    var signingKey = key.publicKey || key.rsaPublicKey
+    const signingKey = key.publicKey || key.rsaPublicKey
     callback(null, signingKey)
   })
 }
